@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import {
   getOutboundFlights,
   getInboundFlights,
-  IFlights,
 } from './services/flightSchedule';
 import { useAppDispatch, useAppSelector } from './store/hooks';
 import {
