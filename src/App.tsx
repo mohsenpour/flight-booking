@@ -4,21 +4,35 @@ import {
   getInboundFlights,
   IFlights,
 } from './services/flightSchedule';
+import { useAppDispatch, useAppSelector } from './store/hooks';
+import {
+  initializeInboundFlights,
+  initializeOutboundFlights,
+} from './store/slices/flightsSlice';
 
 const App = () => {
-  const [outboundFlights, setOutboundFlights] = useState<IFlights>();
-  const [inboundFlights, setInboundFlights] = useState<IFlights>();
+  const dispatch = useAppDispatch();
+  const outboundFlights = useAppSelector(
+    (state) => state.flights.outboundFlights
+  );
+  const inboundFlights = useAppSelector(
+    (state) => state.flights.inboundFlights
+  );
 
   useEffect(() => {
-    getOutboundFlights().then((flights) => setOutboundFlights(flights));
-    getInboundFlights().then((flights) => setInboundFlights(flights));
+    getOutboundFlights().then((response) =>
+      dispatch(initializeOutboundFlights(response.flights))
+    );
+    getInboundFlights().then((response) =>
+      dispatch(initializeInboundFlights(response.flights))
+    );
   }, []);
 
   return (
     <>
       <h1>OutBoundFlights</h1>
       <ul>
-        {outboundFlights?.flights.map((flight, index) => (
+        {outboundFlights?.map((flight, index) => (
           <li key={index}>
             flight duration: {flight.duration} flight price:
             {flight.ticketPrice}
@@ -28,7 +42,7 @@ const App = () => {
 
       <h1>InBoundFlights</h1>
       <ul>
-        {inboundFlights?.flights.map((flight, index) => (
+        {inboundFlights?.map((flight, index) => (
           <li key={index}>
             flight duration: {flight.duration} flight price:
             {flight.ticketPrice}

@@ -1,7 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
+import flightsReducer from './slices/flightsSlice';
 
 let store = configureStore({
-  reducer: {},
+  reducer: { flights: flightsReducer },
 });
 
 export default store;
