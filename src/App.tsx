@@ -1,3 +1,4 @@
+import styles from './App.module.css';
 import { useEffect } from 'react';
 import {
   getOutboundFlights,
@@ -8,6 +9,7 @@ import {
   initializeInboundFlights,
   initializeOutboundFlights,
 } from './store/slices/flightsSlice';
+import FlightCard from './components/FlightCard';
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -30,21 +32,19 @@ const App = () => {
   return (
     <>
       <h1>OutBoundFlights</h1>
-      <ul>
+      <ul className={styles.flightsList}>
         {outboundFlights?.map((flight, index) => (
-          <li key={index}>
-            flight duration: {flight.duration} flight price:
-            {flight.ticketPrice}
+          <li className={styles.flightsListItem} key={index}>
+            <FlightCard flight={flight} />
           </li>
         ))}
       </ul>
 
       <h1>InBoundFlights</h1>
-      <ul>
+      <ul className={styles.flightsList}>
         {inboundFlights?.map((flight, index) => (
-          <li key={index}>
-            flight duration: {flight.duration} flight price:
-            {flight.ticketPrice}
+          <li className={styles.flightsListItem} key={index}>
+            <FlightCard flight={flight} />
           </li>
         ))}
       </ul>

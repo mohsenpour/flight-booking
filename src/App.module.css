@@ -1,0 +1,7 @@
+.flightsList {
+  list-style-type: none;
+}
+
+.flightsListItem {
+  margin: 8px;
+}
